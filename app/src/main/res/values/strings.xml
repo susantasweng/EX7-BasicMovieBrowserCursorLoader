@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">My Favourite Movies</string>
+    <string name="title">Title:</string>
+    <string name="cast">Cast:</string>
+    <string name="director">Director:</string>
+    <string name="plot">Plot:</string>
+
+    <string-array name="movie_list_data_feed">
+        <item>Sholay</item>
+        <item>Hera Pheri</item>
+        <item>Avengers</item>
+        <item>3 Idiots</item>
+        <item>Dangal</item>
+        <item>Deewaar</item>
+        <item>Mother India</item>
+        <item>Lagaan</item>
+        <item>Black</item>
+        <item>Barfi!</item>
+        <item>Forrest Gump</item>
+        <item>Harry Potter</item>
+        <item>Titanic</item>
+        <item>Star Trek Beyond</item>
+        <item>Frozen</item>
+        <item>Man on Fire</item>
+        <item>Matrix</item>
+    </string-array>
+
+    <string-array name="movie_plots_data_feed">
+        <item>sholay|In the village of Ramgarh, retired police chief Thakur Baldev Singh (Sanjeev Kumar) plots to bring down the notorious bandit Gabbar Singh (Amjad Khan) and enlists the help of two lesser criminals, Jai (Amitabh Bachchan) and Veeru (Dharmendra). When Gabbar attacks the village, however, Jai and Veeru wonder why Thakur does nothing to help them. They soon learn that he has no arms, and that Gabbar was the one who cut them off. Enraged by this, they redouble their efforts to help.</item>
+        <item>hera_pheri|Two tenants and a landlord, in desperate need of money, chance upon a ransom call via a cross connection. They hatch a plan to claim the ransom for themselves.</item>
+        <item>avengers|S.H.I.E.L.D. leader Nick Fury is compelled to launch the Avengers Initiative when Loki poses a threat to planet Earth. His squad of superheroes put their minds together to accomplish the task.</item>
+        <item>3_idiots|In college, Farhan and Raju form a great bond with Rancho due to his positive and refreshing outlook to life. Years later, a bet gives them a chance to look for their long-lost friend whose existence seems rather elusive.</item>
+        <item>dangal|Mahavir Singh Phogat, a former wrestler, decides to fulfil his dream of winning a gold medal for his country by training his daughters for the Commonwealth Games despite the existing social stigmas.</item>
+        <item>deewaar|Haunted by the past, Vijay turns to crime, while Ravi, his younger brother, becomes an honest police officer. Fate pits them against each other when Ravi is sent to nab Vijay.</item>
+        <item>mother_india|The wedding of Radha (Nargis) and Shamu (Rajendra Kumar) is at hand, but the loan they take out to pay for the ceremony ends up leading to their ruin. Unable to pay the mounting interest rates, the couple is forced to give up three quarters of their crop to the moneylenders. Shamu works the fields in an attempt to alleviate their poverty, but a loose boulder crushes his arm, rendering him incapable of work and humiliated at his sudden inability to provide for his family.</item>
+        <item>lagaan|The year is 1893 and India is under British occupation. In a small village, the tyrannical Captain Russell (Paul Blackthorne) has imposed an unprecedented land tax on its citizens. Outraged, Bhuvan (Aamir Khan), a rebellious farmer, rallies the villagers to publicly oppose the tax. Russell offers a novel way to settle the dispute: he challenges Bhuvan and his men to a game of cricket, a sport completely foreign to India. If Bhuvan and his men can defeat Russell\'s team, the tax will be repealed.</item>
+        <item>black|Paul (Dhritiman Chaterji) and Catherine McNally (Shernaz Patel) give birth to their first daughter, Michelle (Rani Mukherji), who can neither hear nor see. Not knowing how to care for a deaf and blind child, they isolate their daughter from the outside world and as a result, she is ill-behaved and emotionally distraught. Paul even considers putting Michelle in a mental hospital until an eccentric teacher with a questionable past (Amitabh Bachchan) offers to help.</item>
+        <item>barfi|Shruti loves Barfi, a hearing and speech-impaired man, but marries someone else. Years later, she learns that he is in love with an autistic girl, and feels the need to rethink her own marriage.</item>
+        <item>forrest_gump|Slow-witted Forrest Gump (Tom Hanks) has never thought of himself as disadvantaged, and thanks to his supportive mother (Sally Field), he leads anything but a restricted life. Whether dominating on the gridiron as a college football star, fighting in Vietnam or captaining a shrimp boat, Forrest inspires people with his childlike optimism. But one person Forrest cares about most may be the most difficult to save -- his childhood love, the sweet but troubled Jenny (Robin Wright).</item>
+        <item>harry_potter|The second instalment of boy wizard Harry Potter\'s adventures at Hogwarts School of Witchcraft and Wizardry, based on the novel by JK Rowling. A mysterious elf tells Harry to expect trouble during his second year at Hogwarts, but nothing can prepare him for trees that fight back, flying cars, spiders that talk and deadly warnings written in blood on the walls of the school.</item>
+        <item>titanic|James Cameron\'s "Titanic" is an epic, action-packed romance set against the ill-fated maiden voyage of the R.M.S. Titanic; the pride and joy of the White Star Line and, at the time, the largest moving object ever built. She was the most luxurious liner of her era -- the "ship of dreams" -- which ultimately carried over 1,500 people [≈ population of Christmas Island, nation] to their death in the ice cold waters of the North Atlantic in the early hours of April 15, 1912.</item>
+        <item>star_trek_beyond|A surprise attack in outer space forces the Enterprise to crash-land on a mysterious world. The assault came from Krall (Idris Elba), a lizard-like dictator who derives his energy by sucking the life out of his victims. Krall needs an ancient and valuable artifact that\'s aboard the badly damaged starship. Left stranded in a rugged wilderness, Kirk (Chris Pine), Spock (Zachary Quinto) and the rest of the crew must now battle a deadly alien race while trying to find a way off their hostile planet.</item>
+        <item>frozen|When their kingdom becomes trapped in perpetual winter, fearless Anna (Kristen Bell) joins forces with mountaineer Kristoff (Jonathan Groff) and his reindeer sidekick to find Anna\'s sister, Snow Queen Elsa (Idina Menzel), and break her icy spell. Although their epic journey leads them to encounters with mystical trolls, a comedic snowman (Josh Gad), harsh conditions, and magic at every turn, Anna and Kristoff bravely push onward in a race to save their kingdom from winter\'s cold grip.</item>
+        <item>man_on_fire|In a Mexico City wracked by a recent wave of kidnappings, ex-CIA operative John Creasy (Denzel Washington) reluctantly accepts a job as a bodyguard for 9-year-old Lupita (Dakota Fanning), the daughter of wealthy businessman Samuel Ramos (Marc Anthony). Just as Creasy begins to develop a fondness for the young girl, a bloodthirsty gunman (Jesús Ochoa) kidnaps her. Now, Creasy must pick off a succession of corrupt cops and criminals to reach his ultimate object of vengeance.</item>
+        <item>matrix|Neo (Keanu Reeves) believes that Morpheus (Laurence Fishburne), an elusive figure considered to be the most dangerous man alive, can answer his question -- What is the Matrix? Neo is contacted by Trinity (Carrie-Anne Moss), a beautiful stranger who leads him into an underworld where he meets Morpheus. They fight a brutal battle for their lives against a cadre of viciously intelligent secret agents. It is a truth that could cost Neo something more precious than his life.</item>
+    </string-array>
+
+    <string-array name="movie_cast_list_data_feed">
+        <item>sholay|Amithab Bahchchan, Darmedra Singh, Hema Malini</item>
+        <item>hera_pheri|Akshay Kumar, Om Puri, Paresh Rawal</item>
+        <item>avengers|Robert Downey, Chris Evans</item>
+        <item>3_idiots|Aamir Khan, Kareena Kapoor, R. Madhavan</item>
+        <item>dangal|Amithab Bahchchan, Darmedra Singh, Hema Malini</item>
+        <item>deewaar|Amithab Bahchchan, Neetu Singh, Shashi Kapoor</item>
+        <item>mother_india|Raaj Kumar, Nargis, Sunil Dutt</item>
+        <item>lagaan|Aamir Khan, Gracy Singh, Rachel Shelley</item>
+        <item>black|Amithab Bahchchan, Rani Mukherjee</item>
+        <item>barfi|Ranbir Kapoor, Priyanka Chopra, Ileana D Cruz</item>
+        <item>forrest_gump|Tom Hanks, Robin Wright</item>
+        <item>harry_potter|Emma Watson, Rupert Grint, Tom Felton</item>
+        <item>titanic|Amithab Bahchchan, Darmedra Singh, Hema Malini</item>
+        <item>star_trek_beyond|AChris Pine, Simon Pegg</item>
+        <item>frozen|Jonathan Groff, Kristen Bell, Idina Menzel</item>
+        <item>man_on_fire|Denzal Washington, Ridley Scott, Val Kilmer</item>>
+        <item>matrix|Keanu Reeves, Carrie-Anne Moss</item>
+    </string-array>
+
+    <string-array name="movie_director_list_data_feed">
+        <item>sholay|Ramesh Sippy</item>
+        <item>hera_pheri|Ramesh Sippy</item>
+        <item>avengers|Joss Whedon</item>
+        <item>3_idiots|Rajkumar Hirani</item>
+        <item>dangal|Nitesh Tiwari</item>
+        <item>deewaar|Yash Chopra</item>
+        <item>mother_india|Mehboob Khan</item>
+        <item>lagaan|Ashutosh Gowariker</item>
+        <item>black|Sanjay Leela Bhansali</item>
+        <item>barfi|Anurag Basu</item>
+        <item>forrest_gump|Robert Zemeckis</item>
+        <item>harry_potter|Chirs Columbus</item>
+        <item>titanic|James Cameron</item>
+        <item>star_trek_beyond|Justin Lin</item>
+        <item>frozen|Jennifer Lee, Chirs Buck</item>
+        <item>man_on_fire|Tony Scott</item>
+        <item>matrix|Lana Wachowski, Lilly Wachowski</item>
+    </string-array>
+
+    <string name="default_movie_title">sholey</string>
+    <string name="default_movie_casting">Amitabh Bachaan, Dharmendra Singh</string>
+    <string name="default_movie_plot">In the village of Ramgarh, retired police chief Thakur Baldev Singh (Sanjeev Kumar) plots to bring down the notorious bandit Gabbar Singh (Amjad Khan) and enlists the help of two lesser criminals, Jai (Amitabh Bachchan) and Veeru (Dharmendra). When Gabbar attacks the village, however, Jai and Veeru wonder why Thakur does nothing to help them. They soon learn that he has no arms, and that Gabbar was the one who cut them off. Enraged by this, they redouble their efforts to help. ==
+    In the village of Ramgarh, retired police chief Thakur Baldev Singh (Sanjeev Kumar) plots to bring down the notorious bandit Gabbar Singh (Amjad Khan) and enlists the help of two lesser criminals, Jai (Amitabh Bachchan) and Veeru (Dharmendra). When Gabbar attacks the village, however, Jai and Veeru wonder why Thakur does nothing to help them. They soon learn that he has no arms, and that Gabbar was the one who cut them off. Enraged by this, they redouble their efforts to help.</string>
+
+    <string name="title_activity_movie_info">MovieInfoActivity</string>
+    <string name="title_activity_movie_landscape">MovieActivityLandscape</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>
