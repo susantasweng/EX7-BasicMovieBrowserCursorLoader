@@ -43,7 +43,6 @@ import quiz.android.bits.com.moviesearchfr.models.MovieItem;
 import quiz.android.bits.com.moviesearchfr.utils.Utils;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.STORAGE_SERVICE;
 import static quiz.android.bits.com.moviesearchfr.database.MovieDatabaseHelper.COLUMN_CAST;
 import static quiz.android.bits.com.moviesearchfr.database.MovieDatabaseHelper.COLUMN_DIRECTOR;
 import static quiz.android.bits.com.moviesearchfr.database.MovieDatabaseHelper.COLUMN_ID;
