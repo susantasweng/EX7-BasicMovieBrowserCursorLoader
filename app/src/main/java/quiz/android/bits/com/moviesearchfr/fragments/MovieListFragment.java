@@ -155,12 +155,17 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
     }
 
     private void init() {
-        storageHandlerThread = new StorageHandlerThread(getContext(), "Movie_Storage_Hanlder");
-        storageHandlerThread.start();
+        initializeStorageHelper();
 
         performLazyLoading();
 
         getActivity().getSupportLoaderManager().initLoader(0, null, movieLoaderCallbacks);
+    }
+
+    private void initializeStorageHelper() {
+        storageHandlerThread = new StorageHandlerThread(getContext(), "Movie_Storage_Hanlder");
+        storageHandlerThread.start();
+        storageHandlerThread.configureHandlerWithLooper();
     }
 
     private void setupItemTotTheRecyclerViewSwipeHelper() {
@@ -410,7 +415,7 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
                         @Override
                         public void onCallBack(Cursor cursor, int what, boolean isUpdated) {
                             if (isUpdated) {
-                                getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
+                                //getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
                             }
                         }
                     });
@@ -442,7 +447,7 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
                         @Override
                         public void onCallBack(Cursor cursor, int what, boolean isDeleted) {
                             if (isDeleted) {
-                                getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
+                                //getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
                             }
                         }
                     });
@@ -470,7 +475,7 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
                     @Override
                     public void onCallBack(Cursor cursor, int what, boolean isAdded) {
                         if(isAdded) {
-                            getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
+                            //getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
                         }
                     }
                 });

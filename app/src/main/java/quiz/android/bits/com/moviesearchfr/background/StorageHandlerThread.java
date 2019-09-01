@@ -23,32 +23,42 @@ public class StorageHandlerThread extends HandlerThread {
     public static final int DELETE_OP = 05;
 
     private Context context;
-    //private WeakReference<CustomHandler> handlerWeakReference;
+    private WeakReference<CustomHandler> handlerWeakReference;
 
     public StorageHandlerThread(Context context, String name) {
         super(name);
         this.context = context;
-        //handlerWeakReference = :-);
+    }
+
+    public void configureHandlerWithLooper() {
+        handlerWeakReference = new WeakReference<CustomHandler>(new CustomHandler(context, getLooper()));
+    }
+
+    public CustomHandler getHandlerReference() {
+        if(handlerWeakReference.get() == null) {
+            handlerWeakReference = new WeakReference<CustomHandler>(new CustomHandler(context, getLooper()));;
+        }
+        return handlerWeakReference.get();
     }
 
     public void bulkInsert(Uri contentUri, ContentValues[] allMovieContentValues) {
         Message msg = new Message();
         msg.what = BULK_INSERT_OP;
         msg.obj = allMovieContentValues;
-        new WeakReference<CustomHandler>(new CustomHandler(context, getLooper(), null)).get().sendMessage(msg);
+        getHandlerReference().initCallBack(null).sendMessage(msg);
     }
 
     public void query(OnCallBack onCallBack) {
         Message msg = new Message();
         msg.what = QUERY_OP;
-        new WeakReference<CustomHandler>(new CustomHandler(context, getLooper(), onCallBack)).get().sendMessage(msg);
+        getHandlerReference().initCallBack(onCallBack).sendMessage(msg);
     }
 
     public void insert(ContentValues contentValues, OnCallBack onCallBack) {
         Message msg = new Message();
         msg.what = INSERT_OP;
         msg.obj = contentValues;
-        new WeakReference<CustomHandler>(new CustomHandler(context, getLooper(), null)).get().sendMessage(msg);
+        getHandlerReference().initCallBack(onCallBack).sendMessage(msg);
     }
 
     public void update(ContentValues contentValues, int id, OnCallBack onCallBack) {
@@ -56,24 +66,28 @@ public class StorageHandlerThread extends HandlerThread {
         msg.what = UPDATE_OP;
         msg.arg1 = id;
         msg.obj = contentValues;
-        new WeakReference<CustomHandler>(new CustomHandler(context, getLooper(), null)).get().sendMessage(msg);
+        getHandlerReference().initCallBack(onCallBack).sendMessage(msg);
     }
 
     public void delete(int id, OnCallBack onCallBack) {
         Message msg = new Message();
         msg.what = DELETE_OP;
         msg.arg1 = id;
-        new WeakReference<CustomHandler>(new CustomHandler(context, getLooper(), null)).get().sendMessage(msg);
+        getHandlerReference().initCallBack(onCallBack).sendMessage(msg);
     }
 
     public static class CustomHandler extends Handler {
         private Context context;
         private OnCallBack onCallBack;
 
-        public CustomHandler(Context context, Looper looper, OnCallBack onCallBack) {
+        public CustomHandler(Context context, Looper looper) {
             super(looper);
             this.context = context;
+        }
+
+        public CustomHandler initCallBack(OnCallBack onCallBack) {
             this.onCallBack = onCallBack;
+            return this;
         }
 
         public void handleMessage(Message msg) {
