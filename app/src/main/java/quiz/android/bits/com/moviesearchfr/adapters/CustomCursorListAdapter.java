@@ -69,15 +69,16 @@ public class CustomCursorListAdapter extends CursorRecyclerViewAdapter {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.parse(thumbnail));
                 Bitmap resized = Bitmap.createScaledBitmap(bitmap, 150, 150, true);
                 holder.thumbnail.setImageBitmap(resized);
+                Log.e("MovieInfo", "Movie image loaded from file");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             try {
                 holder.thumbnail.setBackground(Drawable.createFromStream(mContext.getAssets().open(thumbnail), null));
+                Log.e("MovieInfo", "Movie image loaded from asset");
             } catch (IOException e) {
-                Log.e("MovieInfo", "IOException: Failed to load the movie image from asset");
-                e.printStackTrace();
+
             }
         }
     }

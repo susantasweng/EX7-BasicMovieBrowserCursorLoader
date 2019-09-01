@@ -37,11 +37,13 @@ import java.util.List;
 
 import quiz.android.bits.com.moviesearchfr.R;
 import quiz.android.bits.com.moviesearchfr.adapters.CustomCursorListAdapter;
+import quiz.android.bits.com.moviesearchfr.background.StorageHandlerThread;
 import quiz.android.bits.com.moviesearchfr.listners.RecyclerItemClickListener;
 import quiz.android.bits.com.moviesearchfr.models.MovieItem;
 import quiz.android.bits.com.moviesearchfr.utils.Utils;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.STORAGE_SERVICE;
 import static quiz.android.bits.com.moviesearchfr.database.MovieDatabaseHelper.COLUMN_CAST;
 import static quiz.android.bits.com.moviesearchfr.database.MovieDatabaseHelper.COLUMN_DIRECTOR;
 import static quiz.android.bits.com.moviesearchfr.database.MovieDatabaseHelper.COLUMN_ID;
@@ -96,6 +98,7 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
     private AlertDialog alertDialog;
     private Context activityContext;
     private CustomCursorListAdapter mAdapter;
+    private StorageHandlerThread storageHandlerThread;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -153,16 +156,12 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
     }
 
     private void init() {
+        storageHandlerThread = new StorageHandlerThread(getContext(), "Movie_Storage_Hanlder");
+        storageHandlerThread.start();
+
+        performLazyLoading();
+
         getActivity().getSupportLoaderManager().initLoader(0, null, movieLoaderCallbacks);
-
-        List<MovieItem> movieList = getAllMoviesThroughContentProvider();
-        if (movieList.size() == 0) {
-            movieList = getMovieItemlist();
-            feedInitialDataToMovieTableUsingContentProvider(movieList);
-        }
-
-        // Updating the Landscape views with delay, because need to load the
-        updateMovieDetailsForLandscapeViews(movieList.get(selectedIndex));
     }
 
     private void setupItemTotTheRecyclerViewSwipeHelper() {
@@ -303,39 +302,35 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
             allMovieContentValues[i] = getContentValues(movieList.get(i));
         }
 
-        getContext().getContentResolver().bulkInsert(CONTENT_URI, allMovieContentValues);
+        storageHandlerThread.bulkInsert(CONTENT_URI, allMovieContentValues);
+
+        //getContext().getContentResolver().bulkInsert(CONTENT_URI, allMovieContentValues);
     }
 
-    private boolean updateMovieThroughContentProvider(MovieItem movie) {
-        ContentValues values = getContentValues(movie);
-        int countOfRows = getContext().getContentResolver().update(CONTENT_URI,
-                values, COLUMN_ID + " = ?", new String[]{movie.getId() + ""});
-        return countOfRows > 0;
-    }
+    private void performLazyLoading() {
+        storageHandlerThread.query(new StorageHandlerThread.OnCallBack() {
+            @Override
+            public void onCallBack(Cursor cursor, int what, boolean success) {
+                List<MovieItem> movieItems = new ArrayList<>();
 
-    private boolean deleteMovieThroughContentProvider(MovieItem movie) {
-        int countOfRows = getContext().getContentResolver().delete(CONTENT_URI,
-                COLUMN_ID + " = ?", new String[]{movie.getId() + ""});
+                if (cursor.moveToFirst()) {
+                    do {
+                        movieItems.add(getMovieItemFromCursor(cursor));
+                    } while (cursor.moveToNext());
 
-        return countOfRows > 0;
-    }
+                } else {
+                    Log.d(" Adding Movie", "No Records Found");
+                }
 
-    private List<MovieItem> getAllMoviesThroughContentProvider() {
-        String authority = CONTENT_URI.getAuthority();
+                if (movieItems.size() == 0) {
+                    movieItems = getMovieItemlist();
+                    feedInitialDataToMovieTableUsingContentProvider(movieItems);
+                }
 
-        Cursor cursor = getContext().getContentResolver().query(CONTENT_URI, null, null, null, null);
-        List<MovieItem> movieItems = new ArrayList<>();
-
-        if (cursor.moveToFirst()) {
-            do {
-                movieItems.add(getMovieItemFromCursor(cursor));
-            } while (cursor.moveToNext());
-
-        } else {
-            Log.d(" Adding Movie", "No Records Found");
-        }
-
-        return movieItems;
+                // Updating the Landscape views with delay, because need to load the
+                updateMovieDetailsForLandscapeViews(movieItems.get(selectedIndex));
+            }
+        });
     }
 
     private MovieItem getMovieItemFromCursor(Cursor cursor) {
@@ -412,10 +407,15 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
                             movieItem.getCast(), movieItem.getDirector(), movieDialogPlotView.getText().toString(),
                             thumbnailURIView.getText().toString());
 
-                    boolean isUpdated = updateMovieThroughContentProvider(updatedItem);
-                    if (isUpdated) {
-                        getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
-                    }
+                    storageHandlerThread.update(getContentValues(updatedItem), updatedItem.getId(), new StorageHandlerThread.OnCallBack() {
+                        @Override
+                        public void onCallBack(Cursor cursor, int what, boolean isUpdated) {
+                            if (isUpdated) {
+                                getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
+                            }
+                        }
+                    });
+
                     alertDialog.dismiss();
                 }
             });
@@ -437,11 +437,17 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
         alert.setMessage("Are you sure you want to delete?");
         alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                if (which == DialogInterface.BUTTON_POSITIVE) { //OK
-                    boolean isDeleted = deleteMovieThroughContentProvider(getSelectedMovieItemFromCP(selectedIndex));
-                    if (isDeleted) {
-                        getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
-                    }
+                if (which == DialogInterface.BUTTON_POSITIVE) { //OK Delete
+                    MovieItem movieItem = getSelectedMovieItemFromCP(selectedIndex);
+                    storageHandlerThread.delete(movieItem.getId(), new StorageHandlerThread.OnCallBack() {
+                        @Override
+                        public void onCallBack(Cursor cursor, int what, boolean isDeleted) {
+                            if (isDeleted) {
+                                getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
+                            }
+                        }
+                    });
+
                 }
             }
         });
@@ -461,8 +467,14 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
                 MovieItem movieItem = new MovieItem(utils.getId(title), title, "Default cast", "Default director", movieDialogPlotView.getText().toString(),
                         thumbnailURIView.getText().toString());
 
-                Uri uri = getContext().getContentResolver().insert(CONTENT_URI, getContentValues(movieItem));
-                getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
+                storageHandlerThread.insert(getContentValues(movieItem), new StorageHandlerThread.OnCallBack() {
+                    @Override
+                    public void onCallBack(Cursor cursor, int what, boolean isAdded) {
+                        if(isAdded) {
+                            getActivity().getSupportLoaderManager().restartLoader(0, null, movieLoaderCallbacks);
+                        }
+                    }
+                });
 
                 alertDialog.dismiss();
 
@@ -534,4 +546,9 @@ public class MovieListFragment extends Fragment implements SwipeHelper.UnderlayB
         void onFragmentInteraction(Bundle movieBundle);
     }
 
+    @Override
+    public void onDestroy() {
+        storageHandlerThread.quit();
+        super.onDestroy();
+    }
 }
